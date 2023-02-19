@@ -21,6 +21,9 @@ const useCallFunction = (args, types, fn, opts) => {
         if (x.type === "bytes32") {
           ethers.BigNumber.from(x.value).toString();
         }
+        if (x.type.includes("tuple")) {
+          return JSON.stringify(x.value);
+        }
         return x.value;
       });
       addLogItem(`Event: ${evt.name}(${values})`);
@@ -33,6 +36,8 @@ const useCallFunction = (args, types, fn, opts) => {
       const type = types[idx];
       if (type.substring(0, 4) === "uint") return ethers.BigNumber.from(arg);
       if (type.slice(-2) === "[]") return JSON.parse(arg);
+      if (type === "bool") return JSON.parse(arg);
+      if (type === "tuple") return JSON.parse(arg);
       return arg;
     });
 

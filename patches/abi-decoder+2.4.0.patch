@@ -1,0 +1,37 @@
+diff --git a/node_modules/abi-decoder/index.js b/node_modules/abi-decoder/index.js
+index fbb08ee..08301dd 100644
+--- a/node_modules/abi-decoder/index.js
++++ b/node_modules/abi-decoder/index.js
+@@ -12,10 +12,12 @@ function _getABIs() {
+ }
+ 
+ function _typeToString(input) {
+-  if (input.type === "tuple") {
+-    return "(" + input.components.map(_typeToString).join(",") + ")";
++  let inputString = input.type;
++  if (input.type.includes("tuple")) {
++    inputString = "(" + input.components.map(_typeToString).join(",") + ")";
++    inputString += input.type.substring(5);
+   }
+-  return input.type;
++  return inputString;
+ }
+ 
+ function _addABI(abiArray) {
+@@ -144,7 +146,7 @@ function _decodeLogs(logs) {
+       let dataTypes = [];
+       method.inputs.map(function(input) {
+         if (!input.indexed) {
+-          dataTypes.push(input.type);
++          dataTypes.push(_typeToString(input))
+         }
+       });
+ 
+@@ -152,7 +154,6 @@ function _decodeLogs(logs) {
+         dataTypes,
+         logData.slice(2)
+       );
+-
+       // Loop topic and data to get the params
+       method.inputs.map(function(param) {
+         let decodedP = {
