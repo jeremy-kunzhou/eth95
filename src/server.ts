@@ -52,7 +52,10 @@ const startServer = async ({ port, paths = [], artifactPath }: IServer) => {
           const artifact = JSON.parse(rawJson.toString());
           const payload = {
             type: "NEW_CONTRACT",
-            artifact,
+            artifact: artifact.abi ? artifact : {
+              contractName: removeExtension(path.basename(filePath)),
+              abi: artifact,
+            },
             path: filePath,
             name: removeExtension(path.basename(filePath)),
           };
@@ -66,7 +69,10 @@ const startServer = async ({ port, paths = [], artifactPath }: IServer) => {
           const artifact = JSON.parse(rawJson.toString());
           const payload = {
             type: "CHANGE_CONTRACT",
-            artifact,
+            artifact: artifact.abi ? artifact : {
+              contractName: removeExtension(path.basename(filePath)),
+              abi: artifact,
+            },
             path: filePath,
             name: removeExtension(path.basename(filePath)),
           };
@@ -101,7 +107,10 @@ const startServer = async ({ port, paths = [], artifactPath }: IServer) => {
             const artifact = JSON.parse(rawJson.toString());
             const payload = {
               type: "NEW_CONTRACT",
-              artifact,
+              artifact: artifact.abi ? artifact : {
+                contractName: removeExtension(path.basename(filePath)),
+                abi: artifact,
+              },
               path: filePath,
               name: removeExtension(path.basename(filePath)),
             };

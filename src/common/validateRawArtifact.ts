@@ -11,6 +11,8 @@ const validateRawArtifact = (rawArtifact: any) => {
 
   if (artifact.contractName && artifact.abi && hasFunctions(artifact.abi)) {
     return true;
+  } else if (hasFunctions(artifact)) {
+    return true;
   }
   return false;
 };
