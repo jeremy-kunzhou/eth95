@@ -59,3 +59,8 @@ Note that you can also add any contracts you want if you have the ABI or Artifac
 ## Contact
 
 If you have any questions or comments, please file an issue.
+
+## NOTICE:
+1 put abi in `build/contracts`
+2 run command `yarn start -t`
+3 use browser to open `http://localhost:3000/` or `http://192.168.2.127:3000/`
