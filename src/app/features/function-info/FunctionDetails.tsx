@@ -80,6 +80,19 @@ const FunctionInfo = ({ fn }) => {
             {fn.inputs.map((input, i) => (
               <ParamItem key={input.name}>
                 [{i}]<i>{input.type}</i> {input.name}
+                {
+                  input.type === 'tuple' && input.components && (
+                    <>
+                    {
+                      input.components.map((sub_input, sub_i) => (
+                        <ParamItem key={sub_input.name}>
+                          [{sub_i}]<i>{sub_input.type}</i> {sub_input.name}
+                        </ParamItem>
+                      ))
+                    }
+                    </>
+                  )
+                }
               </ParamItem>
             ))}
           </>
